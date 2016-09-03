@@ -1,8 +1,16 @@
 #[cfg(test)]
 mod tests;
 mod frame;
+mod offset;
 
 pub use frame::*;
+pub use offset::{
+    Offset,
+    ZERO as OFFSET_ZERO,
+    UNIT as OFFSET_UNIT,
+    CENTI as OFFSET_CENTI,
+    MILLI as OFFSET_MILLI,
+};
 
 #[derive(Copy, Clone, Debug)]
 pub struct Cage {
