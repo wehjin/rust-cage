@@ -3,7 +3,11 @@ mod tests;
 mod frame;
 mod offset;
 
-pub use frame::*;
+pub use frame::{
+    Frame,
+    ZERO as FRAME_ZERO,
+    UNIT as FRAME_UNIT,
+};
 pub use offset::{
     Offset,
     ZERO as OFFSET_ZERO,

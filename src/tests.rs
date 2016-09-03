@@ -25,21 +25,33 @@ fn shift_y() {
 }
 
 #[test]
+fn tuple_to_frame() {
+    let frame = Frame::from((1.0, 2.0, 3.0));
+    assert_eq!((1.0,2.0,3.0), frame.tuple())
+}
+
+#[test]
+fn float_to_frame() {
+    let frame = Frame::from(4.0);
+    assert_eq!((4.0,4.0,4.0), frame.tuple());
+}
+
+#[test]
 fn default_frame() {
     let frame: Frame = Default::default();
-    assert_eq!((0.01, 0.01, 0.01), (frame.w, frame.h, frame.d));
+    assert_eq!((1.0, 1.0, 1.0), (frame.w, frame.h, frame.d));
 }
 
 #[test]
 fn unit_frame() {
-    let frame = Frame::unit();
-    assert_eq!((0.01, 0.01, 0.01), (frame.w, frame.h, frame.d));
+    let frame = FRAME_UNIT;
+    assert_eq!((1.0, 1.0, 1.0), frame.tuple());
 }
 
 #[test]
 fn zero_frame() {
-    let frame = Frame::zero();
-    assert_eq!((0.0, 0.0, 0.0), (frame.w, frame.h, frame.d));
+    let frame = FRAME_ZERO;
+    assert_eq!((0.0, 0.0, 0.0), frame.tuple());
 }
 
 #[test]
