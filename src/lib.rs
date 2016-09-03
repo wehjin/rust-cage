@@ -22,6 +22,30 @@ pub struct Cage {
     pub offset: Offset,
 }
 
+impl Cage {
+    pub fn limits(&self) -> (f32, f32, f32, f32, f32, f32) {
+        let (half_w, half_h, half_d) = (self.frame.w / 2.0, self.frame.h / 2.0, self.frame.d / 2.0);
+        (
+            self.offset.x - half_w, self.offset.x + half_w,
+            self.offset.y - half_h, self.offset.y + half_h,
+            self.offset.z - half_d, self.offset.z + half_d
+        )
+    }
+
+    pub fn shift(&self, dx: f32, dy: f32, dz: f32) -> Self {
+        Cage { frame: self.frame, offset: self.offset.shift(dx, dy, dz) }
+    }
+
+    pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
+        Cage { frame: self.frame.scale(sx, sy, sz), offset: self.offset }
+    }
+
+    pub fn contains(&self, x: f32, y: f32, z: f32) -> bool {
+        let (l, r, b, t, f, n) = self.frame.limits();
+        x >= l && x < r && y >= b && y < t && z >= f && z < n
+    }
+}
+
 impl From<(Frame, Offset)> for Cage {
     fn from((frame, offset): (Frame, Offset)) -> Self {
         Cage { frame: frame, offset: offset }
@@ -42,21 +66,3 @@ impl From<(f32, f32, f32, f32, f32, f32)> for Cage {
     }
 }
 
-impl Cage {
-    pub fn limits(&self) -> (f32, f32, f32, f32, f32, f32) {
-        let (half_w, half_h, half_d) = (self.frame.w / 2.0, self.frame.h / 2.0, self.frame.d / 2.0);
-        (
-            self.offset.x - half_w, self.offset.x + half_w,
-            self.offset.y - half_h, self.offset.y + half_h,
-            self.offset.z - half_d, self.offset.z + half_d
-        )
-    }
-
-    pub fn shift(&self, dx: f32, dy: f32, dz: f32) -> Self {
-        Cage { frame: self.frame, offset: self.offset.shift(dx, dy, dz) }
-    }
-
-    pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
-        Cage { frame: self.frame.scale(sx, sy, sz), offset: self.offset }
-    }
-}

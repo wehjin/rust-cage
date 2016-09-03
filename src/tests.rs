@@ -25,6 +25,18 @@ fn scale_cage() {
 }
 
 #[test]
+fn cage_contains() {
+    let cage = Cage::from((-1.0, 1.0, -1.0, 1.0, -1.0, 1.0));
+    assert!(cage.contains(0.0, 0.0, 0.0));
+    assert!(!cage.contains(2.0, 0.0, 0.0));
+    assert!(!cage.contains(-2.0, 0.0, 0.0));
+    assert!(!cage.contains(0.0, 2.0, 0.0));
+    assert!(!cage.contains(0.0, -2.0, 0.0));
+    assert!(!cage.contains(0.0, 0.0, 2.0));
+    assert!(!cage.contains(0.0, 0.0, -2.0));
+}
+
+#[test]
 fn tuple_to_frame() {
     let frame = Frame::from((1.0, 2.0, 3.0));
     assert_eq!((1.0,2.0,3.0), frame.tuple())
