@@ -51,35 +51,47 @@ fn scale_frame() {
 #[test]
 fn zero_offset() {
     let offset = OFFSET_ZERO;
-    assert_eq!((0.0, 0.0,0.0), (offset.x, offset.y, offset.x));
+    assert_eq!((0.0, 0.0,0.0), offset.tuple());
 }
 
 #[test]
 fn unit_offset() {
     let offset = OFFSET_UNIT;
-    assert_eq!((1.0, 1.0,1.0), (offset.x, offset.y, offset.x));
+    assert_eq!((1.0, 1.0,1.0), offset.tuple());
 }
 
 #[test]
 fn centi_offset() {
     let offset = OFFSET_CENTI;
-    assert_eq!((0.01, 0.01, 0.01), (offset.x, offset.y, offset.x));
+    assert_eq!((0.01, 0.01, 0.01), offset.tuple());
 }
 
 #[test]
 fn milli_offset() {
     let offset = OFFSET_MILLI;
-    assert_eq!((0.001, 0.001, 0.001), (offset.x, offset.y, offset.x));
+    assert_eq!((0.001, 0.001, 0.001), offset.tuple());
 }
 
 #[test]
 fn scale_offset() {
     let offset = OFFSET_UNIT.scale(1.0, 2.0, 3.0);
-    assert_eq!((1.0, 2.0, 3.0), (offset.x, offset.y, offset.z))
+    assert_eq!((1.0, 2.0, 3.0), offset.tuple())
 }
 
 #[test]
 fn tuple_to_offset() {
     let offset = Offset::from((1.0, 2.0, 3.0));
-    assert_eq!((1.0, 2.0, 3.0), (offset.x, offset.y, offset.z))
+    assert_eq!((1.0, 2.0, 3.0), offset.tuple())
+}
+
+#[test]
+fn float_to_offset() {
+    let offset = Offset::from(4.0);
+    assert_eq!((4.0, 4.0, 4.0), offset.tuple())
+}
+
+#[test]
+fn shift_offset() {
+    let offset = Offset::from(1.0).shift(1.0, 2.0, 3.0);
+    assert_eq!((2.0, 3.0, 4.0), offset.tuple())
 }

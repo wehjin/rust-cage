@@ -20,10 +20,22 @@ impl Offset {
     pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
         Offset { x: self.x * sx, y: self.y * sy, z: self.z * sz }
     }
+    pub fn shift(&self, dx: f32, dy: f32, dz: f32) -> Self {
+        Offset { x: self.x + dx, y: self.y + dy, z: self.z + dz }
+    }
+    pub fn tuple(&self) -> (f32, f32, f32) {
+        (self.x, self.y, self.z)
+    }
 }
 
 impl From<(f32, f32, f32)> for Offset {
     fn from((x, y, z): (f32, f32, f32)) -> Self {
         Offset { x: x, y: y, z: z }
+    }
+}
+
+impl From<f32> for Offset {
+    fn from(a: f32) -> Self {
+        Offset { x: a, y: a, z: a }
     }
 }
