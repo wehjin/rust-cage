@@ -71,3 +71,9 @@ fn milli_offset() {
     let offset = OFFSET_MILLI;
     assert_eq!((0.001, 0.001, 0.001), (offset.x, offset.y, offset.x));
 }
+
+#[test]
+fn scale_offset() {
+    let offset = OFFSET_UNIT.scale(1.0, 2.0, 3.0);
+    assert_eq!((1.0, 2.0, 3.0), (offset.x, offset.y, offset.z))
+}
