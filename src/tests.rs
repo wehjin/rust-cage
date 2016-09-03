@@ -8,9 +8,14 @@ fn default_cage() {
 
 #[test]
 fn cage_from_limits() {
-    let start_limits = (0.0, 3.0, 0.0, 4.0, 0.0, 5.0);
-    let cage = Cage::from(start_limits);
-    assert_eq!(start_limits, cage.limits());
+    let cage = Cage::from((0.0, 3.0, 0.0, 4.0, 0.0, 5.0));
+    assert_eq!((0.0, 3.0, 0.0, 4.0, 0.0, 5.0), cage.limits());
+}
+
+#[test]
+fn shift_cage() {
+    let cage = Cage::from((0.0, 1.0, 0.0, 1.0, 0.0, 1.0)).shift(1.0, 2.0, 3.0);
+    assert_eq!((1.0, 2.0, 2.0, 3.0, 3.0, 4.0), cage.limits());
 }
 
 #[test]

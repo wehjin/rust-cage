@@ -51,4 +51,8 @@ impl Cage {
             self.offset.z - half_d, self.offset.z + half_d
         )
     }
+
+    pub fn shift(&self, dx: f32, dy: f32, dz: f32) -> Self {
+        Cage { frame: self.frame, offset: self.offset.shift(dx, dy, dz) }
+    }
 }
