@@ -33,8 +33,8 @@ impl Default for Frame {
 }
 
 impl Frame {
-    pub fn scale(&self, scale_w: f32, scale_h: f32, scale_d: f32) -> Self {
-        Frame { w: self.w * scale_w, h: self.h * scale_h, d: self.d * scale_d }
+    pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
+        Frame { w: self.w * sx, h: self.h * sy, d: self.d * sz }
     }
 
     pub fn tuple(&self) -> (f32, f32, f32) {

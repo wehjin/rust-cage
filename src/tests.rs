@@ -19,6 +19,12 @@ fn shift_cage() {
 }
 
 #[test]
+fn scale_cage() {
+    let cage = Cage::from((-1.0, 1.0, -1.0, 1.0, -1.0, 1.0)).scale(1.0, 2.0, 3.0);
+    assert_eq!((-1.0, 1.0, -2.0, 2.0, -3.0, 3.0), cage.limits());
+}
+
+#[test]
 fn tuple_to_frame() {
     let frame = Frame::from((1.0, 2.0, 3.0));
     assert_eq!((1.0,2.0,3.0), frame.tuple())

@@ -55,4 +55,8 @@ impl Cage {
     pub fn shift(&self, dx: f32, dy: f32, dz: f32) -> Self {
         Cage { frame: self.frame, offset: self.offset.shift(dx, dy, dz) }
     }
+
+    pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
+        Cage { frame: self.frame.scale(sx, sy, sz), offset: self.offset }
+    }
 }
