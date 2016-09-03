@@ -10,9 +10,21 @@ pub const UNIT: Offset = Offset { x: 1.0, y: 1.0, z: 1.0 };
 pub const CENTI: Offset = Offset { x: 0.01, y: 0.01, z: 0.01 };
 pub const MILLI: Offset = Offset { x: 0.001, y: 0.001, z: 0.001 };
 
+impl From<(f32, f32, f32)> for Offset {
+    fn from((x, y, z): (f32, f32, f32)) -> Self {
+        Offset { x: x, y: y, z: z }
+    }
+}
+
+impl From<f32> for Offset {
+    fn from(a: f32) -> Self {
+        Offset { x: a, y: a, z: a }
+    }
+}
+
 impl Default for Offset {
     fn default() -> Self {
-        CENTI
+        ZERO
     }
 }
 
@@ -28,14 +40,3 @@ impl Offset {
     }
 }
 
-impl From<(f32, f32, f32)> for Offset {
-    fn from((x, y, z): (f32, f32, f32)) -> Self {
-        Offset { x: x, y: y, z: z }
-    }
-}
-
-impl From<f32> for Offset {
-    fn from(a: f32) -> Self {
-        Offset { x: a, y: a, z: a }
-    }
-}

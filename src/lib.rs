@@ -16,46 +16,31 @@ pub use offset::{
     MILLI as OFFSET_MILLI,
 };
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Default)]
 pub struct Cage {
-    left: f32,
-    right: f32,
-    bottom: f32,
-    top: f32,
-    far: f32,
-    near: f32
+    pub frame: Frame,
+    pub offset: Offset,
+}
+
+impl From<(Frame, Offset)> for Cage {
+    fn from((frame, offset): (Frame, Offset)) -> Self {
+        Cage { frame: frame, offset: offset }
+    }
+}
+
+impl From<Frame> for Cage {
+    fn from(frame: Frame) -> Self {
+        Cage { frame: frame, offset: Default::default() }
+    }
 }
 
 impl Cage {
-    pub fn unit_xy() -> Self {
-        Cage { left: -1.0, right: 1.0, bottom: -1.0, top: 1.0, far: 0.0, near: 0.0 }
-    }
-
-    pub fn scale_xy(&self, scale_x: f32, scale_y: f32) -> Self {
-        Cage {
-            left: self.left * scale_x, right: self.right * scale_x,
-            bottom: self.bottom * scale_y, top: self.top * scale_y,
-            far: self.far, near: self.near
-        }
-    }
-
-    pub fn shift_x(&self, shift: f32) -> Self {
-        Cage {
-            left: self.left + shift, right: self.right + shift,
-            bottom: self.bottom, top: self.top,
-            far: self.far, near: self.near
-        }
-    }
-
-    pub fn shift_y(&self, shift: f32) -> Self {
-        Cage {
-            left: self.left, right: self.right,
-            bottom: self.bottom + shift, top: self.top + shift,
-            far: self.far, near: self.near
-        }
-    }
-
-    pub fn tuple(&self) -> (f32, f32, f32, f32, f32, f32) {
-        (self.left, self.right, self.bottom, self.top, self.far, self.near)
+    pub fn limits(&self) -> (f32, f32, f32, f32, f32, f32) {
+        let (half_w, half_h, half_d) = (self.frame.w / 2.0, self.frame.h / 2.0, self.frame.d / 2.0);
+        (
+            self.offset.x - half_w, self.offset.x + half_w,
+            self.offset.y - half_h, self.offset.y + half_h,
+            self.offset.z - half_d, self.offset.z + half_d
+        )
     }
 }
