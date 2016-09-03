@@ -34,6 +34,14 @@ impl From<Frame> for Cage {
     }
 }
 
+impl From<(f32, f32, f32, f32, f32, f32)> for Cage {
+    fn from(limits: (f32, f32, f32, f32, f32, f32)) -> Self {
+        let frame = Frame::from(limits);
+        let offset = Offset::from(limits);
+        Cage { frame: frame, offset: offset }
+    }
+}
+
 impl Cage {
     pub fn limits(&self) -> (f32, f32, f32, f32, f32, f32) {
         let (half_w, half_h, half_d) = (self.frame.w / 2.0, self.frame.h / 2.0, self.frame.d / 2.0);

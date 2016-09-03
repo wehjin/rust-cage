@@ -8,6 +8,12 @@ pub struct Frame {
 pub const ZERO: Frame = Frame { w: 0.0, h: 0.0, d: 0.0 };
 pub const UNIT: Frame = Frame { w: 1.0, h: 1.0, d: 1.0 };
 
+impl From<(f32, f32, f32, f32, f32, f32)> for Frame {
+    fn from((l, r, b, t, f, n): (f32, f32, f32, f32, f32, f32)) -> Self {
+        Frame { w: r - l, h: t - b, d: n - f }
+    }
+}
+
 impl From<(f32, f32, f32)> for Frame {
     fn from((w, h, d): (f32, f32, f32)) -> Self {
         Frame { w: w, h: h, d: d }
