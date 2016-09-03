@@ -21,3 +21,9 @@ impl Offset {
         Offset { x: self.x * sx, y: self.y * sy, z: self.z * sz }
     }
 }
+
+impl From<(f32, f32, f32)> for Offset {
+    fn from((x, y, z): (f32, f32, f32)) -> Self {
+        Offset { x: x, y: y, z: z }
+    }
+}

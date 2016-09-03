@@ -77,3 +77,9 @@ fn scale_offset() {
     let offset = OFFSET_UNIT.scale(1.0, 2.0, 3.0);
     assert_eq!((1.0, 2.0, 3.0), (offset.x, offset.y, offset.z))
 }
+
+#[test]
+fn tuple_to_offset() {
+    let offset = Offset::from((1.0, 2.0, 3.0));
+    assert_eq!((1.0, 2.0, 3.0), (offset.x, offset.y, offset.z))
+}
