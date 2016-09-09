@@ -41,7 +41,7 @@ impl Cage {
     }
 
     pub fn contains(&self, x: f32, y: f32, z: f32) -> bool {
-        let (l, r, b, t, f, n) = self.frame.limits();
+        let (l, r, b, t, f, n) = self.limits();
         x >= l && x < r && y >= b && y < t && z >= f && z < n
     }
 }

@@ -37,6 +37,12 @@ fn cage_contains() {
 }
 
 #[test]
+fn cage_contains_at_offset() {
+    let cage = Cage::from((-10.0, -9.0, -1.0, 1.0, -1.0, 1.0));
+    assert!(!cage.contains(0.0, 0.0, 0.0));
+}
+
+#[test]
 fn tuple_to_frame() {
     let frame = Frame::from((1.0, 2.0, 3.0));
     assert_eq!((1.0,2.0,3.0), frame.tuple())
