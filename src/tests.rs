@@ -85,6 +85,12 @@ fn zero_offset() {
 }
 
 #[test]
+fn constructed_zero_offset() {
+    let offset = Offset::zero();
+    assert_eq!((0.0, 0.0,0.0), offset.tuple());
+}
+
+#[test]
 fn default_offset() {
     let offset: Offset = Default::default();
     assert_eq!((0.0,0.0,0.0), offset.tuple());

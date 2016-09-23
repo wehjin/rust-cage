@@ -35,6 +35,9 @@ impl Default for Offset {
 }
 
 impl Offset {
+    pub fn zero() -> Self {
+        ZERO
+    }
     pub fn scale(&self, sx: f32, sy: f32, sz: f32) -> Self {
         Offset { x: self.x * sx, y: self.y * sy, z: self.z * sz }
     }
