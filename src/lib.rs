@@ -2,12 +2,14 @@
 mod tests;
 mod frame;
 mod offset;
+mod translation;
 
 pub use frame::{
     Frame,
     ZERO as FRAME_ZERO,
     UNIT as FRAME_UNIT,
 };
+
 pub use offset::{
     Offset,
     ZERO as OFFSET_ZERO,
@@ -16,6 +18,8 @@ pub use offset::{
     MILLI as OFFSET_MILLI,
 };
 
+pub use translation::Translation;
+
 #[derive(Copy, Clone, Debug, Default)]
 pub struct Cage {
     pub frame: Frame,
@@ -23,6 +27,16 @@ pub struct Cage {
 }
 
 impl Cage {
+    /// Construct a cage from its sides
+    pub fn new(left: f32, right: f32, bottom: f32, top: f32, far: f32, near: f32) -> Self {
+        Cage::from((left, right, bottom, top, far, near))
+    }
+
+    /// Construct a cage with zero origin and zero frame
+    pub fn new_zero() -> Self {
+        Cage { frame: FRAME_ZERO, offset: OFFSET_ZERO }
+    }
+
     pub fn limits(&self) -> (f32, f32, f32, f32, f32, f32) {
         let (half_w, half_h, half_d) = (self.frame.w / 2.0, self.frame.h / 2.0, self.frame.d / 2.0);
         (
@@ -43,6 +57,31 @@ impl Cage {
     pub fn contains(&self, x: f32, y: f32, z: f32) -> bool {
         let (l, r, b, t, f, n) = self.limits();
         x >= l && x < r && y >= b && y < t && z >= f && z < n
+    }
+
+    /// Individually move the sides of a cage
+    ///
+    /// ```
+    /// use cage::{Cage,Translation};
+    ///
+    /// let translation = Translation {
+    ///     left: -1.0, right: 1.0, bottom:-1.5, top:1.5, far:-2.0, near:2.0
+    /// };
+    /// let translated = Cage::new_zero().translate_sides(translation);
+    /// assert_eq!(2.0, translated.frame.w);
+    /// assert_eq!(3.0, translated.frame.h);
+    /// assert_eq!(4.0, translated.frame.d);
+    /// ```
+    pub fn translate_sides(&self, translation: Translation) -> Self {
+        let (left, right, bottom, top, far, near) = self.limits();
+        Cage::new(
+            left + translation.left,
+            right + translation.right,
+            bottom + translation.bottom,
+            top + translation.top,
+            far + translation.far,
+            near + translation.near
+        )
     }
 }
 
